@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hastalık Hakkında — GlokomBilgi</title>
+  <meta name="description" content="Glokom nedir, belirtileri nelerdir, türleri ve tedavi yöntemleri hakkında kapsamlı bilgi." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { padding-top: 72px; }
+
+    .content-section { background: var(--white); padding: 80px 0; }
+    .content-section:nth-child(even) { background: var(--gray-100); }
+
+    /* Tabs */
+    .tabs-wrap { background: var(--white); padding: 80px 0; }
+    .tab-nav {
+      display: flex; gap: 8px; margin-bottom: 40px;
+      border-bottom: 2px solid var(--gray-200); padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 12px 24px; border: none; background: none; cursor: pointer;
+      font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600;
+      color: var(--gray-600); border-bottom: 3px solid transparent;
+      margin-bottom: -2px; transition: var(--transition); border-radius: 0;
+    }
+    .tab-btn:hover { color: var(--teal-500); }
+    .tab-btn.active { color: var(--teal-500); border-bottom-color: var(--teal-500); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .type-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+    .type-card {
+      background: var(--gray-100); border-radius: var(--radius-md);
+      padding: 28px; border-left: 4px solid var(--teal-500);
+    }
+    .type-card h4 { color: var(--navy-800); margin-bottom: 10px; font-size: 1.05rem; }
+    .type-card p  { color: var(--gray-600); font-size: 0.9rem; line-height: 1.7; }
+
+    /* Info blocks */
+    .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .info-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 28px; box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--teal-400);
+    }
+    .info-card .ic-icon { font-size: 2rem; margin-bottom: 14px; }
+    .info-card h4 { color: var(--navy-800); margin-bottom: 10px; }
+    .info-card ul { padding-left: 18px; }
+    .info-card ul li { color: var(--gray-600); font-size: 0.88rem; line-height: 1.8; }
+
+    /* Treatment cards */
+    .treatment-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .treatment-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 32px; box-shadow: var(--shadow-sm); text-align: center;
+      transition: var(--transition);
+    }
+    .treatment-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .treatment-card .t-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 20px;
+    }
+    .treatment-card h4 { color: var(--navy-800); margin-bottom: 10px; }
+    .treatment-card p  { color: var(--gray-600); font-size: 0.88rem; line-height: 1.7; }
+
+    /* Intro text */
+    .intro-text {
+      max-width: 780px; margin: 0 auto 48px;
+      font-family: var(--font-serif); font-size: 1.05rem;
+      color: var(--gray-600); line-height: 1.9; text-align: center;
+    }
+
+    @media(max-width:768px) {
+      .type-grid, .info-grid, .treatment-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">👁️</div>
+        <div class="logo-text">Glokom<span>Bilgi</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="hastalik.html" class="active">Hastalık Hakkında</a>
+        <a href="yayinlar.html">Akademik Yayınlar</a>
+        <a href="hekimler.html">Uzman Hekimler</a>
+        <a href="iletisim.html">İletişim</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">🏠 Ana Sayfa</a>
+    <a href="hastalik.html">🔬 Hastalık Hakkında</a>
+    <a href="yayinlar.html">📚 Akademik Yayınlar</a>
+    <a href="hekimler.html">👨‍⚕️ Uzman Hekimler</a>
+    <a href="iletisim.html">📬 İletişim</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow">Hastalık Hakkında</span>
+    <h1>Glokom Nedir?</h1>
+    <p>Belirtileri, türleri, risk faktörleri ve tedavi yöntemleri hakkında kapsamlı bilgi.</p>
+  </div>
+
+  <!-- Nedir -->
+  <section class="content-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Tanım</span>
+        <h2>Glokom Nedir?</h2>
+      </div>
+      <p class="intro-text fade-up">
+        Glokom; optik sinirin hasar gördüğü, çoğunlukla göz içi basıncının (GİB) yükselmesiyle ortaya çıkan ve tedavi edilmezse kalıcı görme kaybına yol açan kronik bir göz hastalığıdır. "Sessiz hırsız" olarak da bilinir çünkü çoğu zaman erken evrede hiçbir belirti vermez. Dünya genelinde 80 milyon kişiyi etkileyen glokom, geri dönüşümsüz körlüğün 2. en sık nedenidir.
+      </p>
+    </div>
+  </section>
+
+  <!-- Türler -->
+  <section class="tabs-wrap">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Sınıflandırma</span>
+        <h2>Glokom Türleri</h2>
+        <p>Glokom tek bir hastalık değil; farklı mekanizmalarla gelişen bir hastalık grubudur.</p>
+      </div>
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="tab-acik">Açık Açılı</button>
+        <button class="tab-btn" data-tab="tab-kapali">Kapalı Açılı</button>
+        <button class="tab-btn" data-tab="tab-normal">Normal Basınçlı</button>
+        <button class="tab-btn" data-tab="tab-sekonder">Sekonder</button>
+      </nav>
+
+      <div id="tab-acik" class="tab-panel active fade-up">
+        <div class="type-grid">
+          <div class="type-card">
+            <h4>🔵 Primer Açık Açılı Glokom (PAAG)</h4>
+            <p>En yaygın türdür. Göz içi sıvısının drenaj kanalları tıkanmadan GİB yavaşça yükselir. Belirti vermeden ilerler; periferik görüşten başlayarak merkez görüşe ilerleyen kayba neden olur.</p>
+          </div>
+          <div class="type-card">
+            <h4>📊 Özellikler</h4>
+            <p>Tüm glokom vakalarının yaklaşık %70-80'ini oluşturur. 40 yaş üstünde görülme sıklığı artar. Ailede glokom öyküsü riski 4-9 kat artırmaktadır. Düzenli GİB ölçümü ile erken tanı mümkündür.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-kapali" class="tab-panel fade-up">
+        <div class="type-grid">
+          <div class="type-card">
+            <h4>🔴 Primer Kapalı Açılı Glokom</h4>
+            <p>Ön segment açısının (iris ile kornea arası) daralması veya kapanması nedeniyle sıvı drenajı engellenir ve GİB ani yükselir. Akut krizler ani göz ağrısı, bulantı ve görme kaybı ile karakterizedir.</p>
+          </div>
+          <div class="type-card">
+            <h4>⚠️ Akut Kriz Belirtileri</h4>
+            <p>Şiddetli göz ağrısı, baş ağrısı, bulantı-kusma, kırmızı göz, ışık etrafında hale görme, bulanık görme. <strong>Tıbbi acil durumdur, derhal müdahale gerektirir.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-normal" class="tab-panel fade-up">
+        <div class="type-grid">
+          <div class="type-card">
+            <h4>🟡 Normal Basınçlı Glokom</h4>
+            <p>GİB normal sınırlarda (≤21 mmHg) olmasına rağmen optik sinir hasarı ve görme alanı kaybı gelişir. Vasküler faktörler, uyku apnesi ve düşük kan basıncı rol oynayabilir.</p>
+          </div>
+          <div class="type-card">
+            <h4>🔍 Tanı Zorluğu</h4>
+            <p>GİB normal olduğundan gözden kaçabilir. Optik sinirin OCT ile detaylı incelenmesi ve görme alanı testleri tanı için kritik öneme sahiptir. Kadın hastalarda daha sık görülür.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-sekonder" class="tab-panel fade-up">
+        <div class="type-grid">
+          <div class="type-card">
+            <h4>🟠 Sekonder Glokom</h4>
+            <p>Başka bir göz hastalığı veya sistemik durumun sonucunda gelişir: diyabetik retinopati, üveit, travma, uzun süreli kortikosteroid kullanımı veya pigment dispersiyon sendromu.</p>
+          </div>
+          <div class="type-card">
+            <h4>👶 Konjenital Glokom</h4>
+            <p>Doğumda veya erken çocukluk döneminde görülür. Gözlerin anormal büyük görünmesi (buphthalmos), ışık hassasiyeti ve aşırı gözyaşı başlıca belirtilerdir. Cerrahi tedavi gerektirir.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Belirtiler & Riskler & Tanı -->
+  <section class="content-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Klinik Bilgi</span>
+        <h2>Belirtiler, Riskler ve Tanı</h2>
+      </div>
+      <div class="info-grid">
+        <div class="info-card fade-up">
+          <div class="ic-icon">⚠️</div>
+          <h4>Başlıca Belirtiler</h4>
+          <ul>
+            <li>Işık etrafında hale görme</li>
+            <li>Periferik görüşte daralma</li>
+            <li>Bulanık veya silik görme</li>
+            <li>Göz ağrısı ve baş ağrısı</li>
+            <li>Gece görüşünde bozulma</li>
+            <li>Göz kızarıklığı (akut)</li>
+          </ul>
+        </div>
+        <div class="info-card fade-up">
+          <div class="ic-icon">🎯</div>
+          <h4>Risk Faktörleri</h4>
+          <ul>
+            <li>40 yaş üzeri olmak</li>
+            <li>Ailede glokom öyküsü</li>
+            <li>Yüksek göz içi basıncı</li>
+            <li>Diyabet ve hipertansiyon</li>
+            <li>İnce kornea</li>
+            <li>Uzun süreli kortikosteroid kullanımı</li>
+          </ul>
+        </div>
+        <div class="info-card fade-up">
+          <div class="ic-icon">🔬</div>
+          <h4>Tanı Yöntemleri</h4>
+          <ul>
+            <li>Tonometri (GİB ölçümü)</li>
+            <li>Optik koherens tomografi (OCT)</li>
+            <li>Görme alanı testi (perimetri)</li>
+            <li>Gonyoskopi (açı muayenesi)</li>
+            <li>Pakimetri (kornea kalınlığı)</li>
+            <li>Optik disk fotoğraflaması</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tedavi -->
+  <section style="background:var(--gray-100); padding:80px 0;">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Tedavi</span>
+        <h2>Tedavi Yöntemleri</h2>
+        <p>Glokomun kesin tedavisi henüz yoktur; ancak hastalığın ilerlemesi durdurmak mümkündür.</p>
+      </div>
+      <div class="treatment-grid">
+        <div class="treatment-card fade-up">
+          <div class="t-icon" style="background:linear-gradient(135deg,#e0f7f7,#b3eeee)">💊</div>
+          <h4>İlaç Tedavisi</h4>
+          <p>Göz damlaları (beta blokerler, prostaglandinler, alfa agonistler) GİB'i düşürerek optik siniri korur. En yaygın ilk tedavi yöntemidir.</p>
+        </div>
+        <div class="treatment-card fade-up">
+          <div class="t-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">⚡</div>
+          <h4>Lazer Tedavisi</h4>
+          <p>SLT (Selektif Lazer Trabeküloplasti) drenaj kanallarını açarak GİB'i düşürür. Ağrısız ve poliklinik ortamında yapılabilen bir işlemdir.</p>
+        </div>
+        <div class="treatment-card fade-up">
+          <div class="t-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">🏥</div>
+          <h4>Cerrahi Tedavi</h4>
+          <p>Trabekülektomi ve tüp implantları gibi yöntemlerle yeni drenaj yolları oluşturulur. İlaç ve lazer yetersiz kaldığında tercih edilir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text"><div class="logo-icon">👁️</div>GlokomBilgi</div>
+          <p>Glokom hastaları için güvenilir bilgi platformu.</p>
+          <div class="footer-disclaimer">⚠️ Bu site tıbbi tavsiye vermez. Sağlık kararlarınız için mutlaka bir hekim ile görüşünüz.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="hastalik.html">Hastalık Hakkında</a></li>
+            <li><a href="yayinlar.html">Akademik Yayınlar</a></li>
+            <li><a href="hekimler.html">Uzman Hekimler</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul>
+            <li><a href="https://www.glaucoma.org" target="_blank">Glaucoma Research Foundation</a></li>
+            <li><a href="https://www.aao.org" target="_blank">American Academy of Ophthalmology</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 GlokomBilgi</span>
+        <span>Glokom hastaları için yapıldı 💙</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uzman Hekimler — GlokomBilgi</title>
+  <meta name="description" content="Türkiye'nin önde gelen glokom uzmanları — İstanbul, Ankara ve İzmir'deki alanında deneyimli hekimler." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { padding-top: 72px; }
+    .doctors-section { padding: 80px 0; background: var(--gray-100); }
+
+    /* Filter */
+    .filter-row {
+      display: flex; gap: 10px; margin-bottom: 40px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 10px 24px; border: 2px solid var(--gray-200);
+      border-radius: 999px; cursor: pointer; font-family: var(--font-sans);
+      font-size: 0.88rem; font-weight: 600; color: var(--gray-600);
+      background: var(--white); transition: var(--transition);
+    }
+    .filter-btn:hover { border-color: var(--teal-400); color: var(--teal-500); }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
+      border-color: transparent; color: var(--white);
+      box-shadow: var(--shadow-teal);
+    }
+
+    /* Doctor Grid */
+    .doctor-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    }
+
+    .doctor-card {
+      background: var(--white); border-radius: var(--radius-md);
+      overflow: hidden; box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .doctor-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+    .doctor-header {
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+      padding: 32px 24px 24px; text-align: center; position: relative;
+    }
+
+    .doctor-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal-500), var(--teal-300));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem; margin: 0 auto 16px;
+      border: 4px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .doctor-header h3 {
+      color: var(--white); font-size: 1rem; margin-bottom: 4px;
+    }
+    .doctor-header .title-badge {
+      display: inline-block; background: rgba(14,158,158,0.3);
+      border: 1px solid rgba(14,158,158,0.4);
+      color: var(--teal-300); font-size: 0.75rem; font-weight: 600;
+      padding: 4px 12px; border-radius: 999px;
+    }
+
+    .city-tag {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8); font-size: 0.72rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 999px;
+    }
+
+    .doctor-body { padding: 24px; }
+
+    .doctor-info { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .doc-info-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.88rem; color: var(--gray-600);
+    }
+    .doc-info-row .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .doc-info-row strong { color: var(--gray-800); }
+
+    .specialty-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .spec-tag {
+      background: var(--teal-100); color: var(--teal-500);
+      font-size: 0.72rem; font-weight: 600; padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    @media(max-width:1024px) { .doctor-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:640px)  { .doctor-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">👁️</div>
+        <div class="logo-text">Glokom<span>Bilgi</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="hastalik.html">Hastalık Hakkında</a>
+        <a href="yayinlar.html">Akademik Yayınlar</a>
+        <a href="hekimler.html" class="active">Uzman Hekimler</a>
+        <a href="iletisim.html">İletişim</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">🏠 Ana Sayfa</a>
+    <a href="hastalik.html">🔬 Hastalık Hakkında</a>
+    <a href="yayinlar.html">📚 Akademik Yayınlar</a>
+    <a href="hekimler.html">👨‍⚕️ Uzman Hekimler</a>
+    <a href="iletisim.html">📬 İletişim</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow">Uzman Hekimler</span>
+    <h1>Türkiye'nin Glokom Uzmanları</h1>
+    <p>İstanbul, Ankara ve İzmir'deki alanında deneyimli glokom hekimleri.</p>
+  </div>
+
+  <section class="doctors-section">
+    <div class="container">
+
+      <div class="filter-row">
+        <button class="filter-btn active" data-city="all">🌍 Tümü</button>
+        <button class="filter-btn" data-city="istanbul">🏙️ İstanbul</button>
+        <button class="filter-btn" data-city="ankara">🏛️ Ankara</button>
+        <button class="filter-btn" data-city="izmir">🌊 İzmir</button>
+      </div>
+
+      <div class="doctor-grid">
+
+        <!-- İSTANBUL -->
+        <div class="doctor-card fade-up" data-city="istanbul">
+          <div class="doctor-header">
+            <span class="city-tag">📍 İstanbul</span>
+            <div class="doctor-avatar">👨‍⚕️</div>
+            <h3>Prof. Dr. Şükrü Bayraktar</h3>
+            <span class="title-badge">Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> Cerrahpaşa Tıp Fakültesi Göz Kliniği</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Glokom cerrahisi ve erken tanı yöntemleri üzerine akademik çalışmalar.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Açık Açılı Glokom</span>
+              <span class="spec-tag">Glokom Cerrahisi</span>
+              <span class="spec-tag">OCT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-card fade-up" data-city="istanbul">
+          <div class="doctor-header">
+            <span class="city-tag">📍 İstanbul</span>
+            <div class="doctor-avatar">👨‍⚕️</div>
+            <h3>Prof. Dr. Zeki Tunç</h3>
+            <span class="title-badge">Glokom & Kornea Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> Özel Klinik – İstanbul</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Glokom, katarakt ve kornea hastalıkları alanında geniş klinik deneyim.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Glokom</span>
+              <span class="spec-tag">Katarakt</span>
+              <span class="spec-tag">Kornea</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-card fade-up" data-city="istanbul">
+          <div class="doctor-header">
+            <span class="city-tag">📍 İstanbul</span>
+            <div class="doctor-avatar">👨‍⚕️</div>
+            <h3>Prof. Dr. Ilgaz Yalvaç Sağdıç</h3>
+            <span class="title-badge">Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> İstanbul Göz Merkezi</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Katarakt ve glokom alanında uzun yıllara dayanan klinik ve cerrahi tecrübe.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Glokom Takibi</span>
+              <span class="spec-tag">Katarakt</span>
+              <span class="spec-tag">Laser</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANKARA -->
+        <div class="doctor-card fade-up" data-city="ankara">
+          <div class="doctor-header">
+            <span class="city-tag">📍 Ankara</span>
+            <div class="doctor-avatar">👨‍⚕️</div>
+            <h3>Prof. Dr. Ahmet Akman</h3>
+            <span class="title-badge">Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Klinik:</strong> Özel Klinik – Via Tower, Yenimahalle / Ankara</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">📚</span>
+                <span><strong>Yayın:</strong> "OCT in Glaucoma" kitabının ortak yazarı; Başkent Üni.'nde glokom departmanını kurdu.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Glokom Cerrahisi</span>
+              <span class="spec-tag">OCT</span>
+              <span class="spec-tag">Ön Segment</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-card fade-up" data-city="ankara">
+          <div class="doctor-header">
+            <span class="city-tag">📍 Ankara</span>
+            <div class="doctor-avatar">👩‍⚕️</div>
+            <h3>Prof. Dr. Nuray Akyol</h3>
+            <span class="title-badge">Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> Ankara Üniversitesi Tıp Fakültesi Göz Kliniği</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Glokom tanı ve tedavisi üzerine kapsamlı akademik çalışma portföyü.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">PAAG</span>
+              <span class="spec-tag">Görme Alanı</span>
+              <span class="spec-tag">GİB Takibi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-card fade-up" data-city="ankara">
+          <div class="doctor-header">
+            <span class="city-tag">📍 Ankara</span>
+            <div class="doctor-avatar">👨‍⚕️</div>
+            <h3>Prof. Dr. Murat Küçükevcilioğlu</h3>
+            <span class="title-badge">Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> Ankara'da Göz Hastalıkları Kliniği</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Glokom tedavisi ve uzun dönem hasta takibi konusunda kapsamlı deneyim.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Glokom Tedavisi</span>
+              <span class="spec-tag">Hasta Takibi</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- İZMİR -->
+        <div class="doctor-card fade-up" data-city="izmir">
+          <div class="doctor-header">
+            <span class="city-tag">📍 İzmir</span>
+            <div class="doctor-avatar">👩‍⚕️</div>
+            <h3>Prof. Dr. Esin Başer</h3>
+            <span class="title-badge">Glokom & Kornea Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> Ege Üniversitesi Tıp Fakültesi Göz ABD</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Glokom ve kornea hastalıkları üzerine yoğunlaşmış akademik kariyer.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Glokom</span>
+              <span class="spec-tag">Kornea</span>
+              <span class="spec-tag">Ön Segment</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-card fade-up" data-city="izmir">
+          <div class="doctor-header">
+            <span class="city-tag">📍 İzmir</span>
+            <div class="doctor-avatar">👩‍⚕️</div>
+            <h3>Prof. Dr. Filiz Afrashi</h3>
+            <span class="title-badge">Retina & Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> Ege Üniversitesi Tıp Fakültesi Göz Kliniği</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Retina, katarakt ve glokom alanlarında çok yönlü akademik ve cerrahi deneyim.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Retina</span>
+              <span class="spec-tag">Glokom</span>
+              <span class="spec-tag">Katarakt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-card fade-up" data-city="izmir">
+          <div class="doctor-header">
+            <span class="city-tag">📍 İzmir</span>
+            <div class="doctor-avatar">👩‍⚕️</div>
+            <h3>Prof. Dr. Canan Aslı Yıldırım</h3>
+            <span class="title-badge">Glokom Uzmanı</span>
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-info">
+              <div class="doc-info-row">
+                <span class="icon">🏥</span>
+                <span><strong>Hastane:</strong> İzmir'de Göz Hastalıkları Kliniği</span>
+              </div>
+              <div class="doc-info-row">
+                <span class="icon">🎓</span>
+                <span><strong>Uzmanlık:</strong> Glokom tanı ve tedavisi ile uzman düzeyde ilgilenme; perimetri ve OCT tecrübesi.</span>
+              </div>
+            </div>
+            <div class="specialty-tags">
+              <span class="spec-tag">Glokom</span>
+              <span class="spec-tag">Perimetri</span>
+              <span class="spec-tag">OCT</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text"><div class="logo-icon">👁️</div>GlokomBilgi</div>
+          <p>Glokom hastaları için güvenilir bilgi platformu.</p>
+          <div class="footer-disclaimer">⚠️ Bu site tıbbi tavsiye vermez. Sağlık kararlarınız için mutlaka bir hekim ile görüşünüz.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="hastalik.html">Hastalık Hakkında</a></li>
+            <li><a href="yayinlar.html">Akademik Yayınlar</a></li>
+            <li><a href="hekimler.html">Uzman Hekimler</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul>
+            <li><a href="https://www.glaucoma.org" target="_blank">Glaucoma Research Foundation</a></li>
+            <li><a href="https://www.aao.org" target="_blank">American Academy of Ophthalmology</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 GlokomBilgi</span>
+        <span>Glokom hastaları için yapıldı 💙</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

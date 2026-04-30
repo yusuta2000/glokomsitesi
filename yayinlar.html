@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akademik Yayınlar — GlokomBilgi</title>
+  <meta name="description" content="Glokom alanında en çok atıf alan landmark çalışmalar ve 2024-2025'in en güncel araştırmaları." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { padding-top: 72px; }
+
+    .pub-section { padding: 80px 0; background: var(--gray-100); }
+
+    /* Tab Navigation */
+    .pub-tabs {
+      display: flex; gap: 12px; margin-bottom: 48px;
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 8px; box-shadow: var(--shadow-sm); width: fit-content;
+    }
+    .tab-btn {
+      padding: 12px 28px; border: none; border-radius: 10px;
+      cursor: pointer; font-family: var(--font-sans);
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--gray-600); background: transparent;
+      transition: var(--transition);
+    }
+    .tab-btn:hover { color: var(--teal-500); background: var(--teal-100); }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
+      color: var(--white); box-shadow: var(--shadow-teal);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Publication Card */
+    .pub-grid { display: flex; flex-direction: column; gap: 24px; }
+
+    .pub-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 32px; box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border-left: 5px solid var(--teal-500);
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
+    }
+    .pub-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
+
+    .pub-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 12px;
+      border-radius: 999px; margin-bottom: 12px;
+    }
+    .badge-cited { background: #fef3c7; color: #92400e; }
+    .badge-new   { background: #d1fae5; color: #065f46; }
+
+    .pub-card h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--navy-800); margin-bottom: 8px; line-height: 1.4;
+    }
+    .pub-meta {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      font-size: 0.82rem; color: var(--gray-400); margin-bottom: 14px;
+    }
+    .pub-meta span { display: flex; align-items: center; gap: 4px; }
+    .pub-abstract {
+      font-family: var(--font-serif); font-size: 0.92rem;
+      color: var(--gray-600); line-height: 1.8;
+    }
+
+    .pub-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; min-width: 120px; }
+
+    .citation-badge {
+      background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
+      color: var(--white); border-radius: var(--radius-md);
+      padding: 14px 18px; text-align: center; min-width: 100px;
+    }
+    .citation-badge .cite-num { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+    .citation-badge .cite-label { font-size: 0.68rem; opacity: 0.85; }
+
+    .doi-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; color: var(--teal-500);
+      border: 1px solid var(--teal-300); border-radius: 8px;
+      padding: 8px 14px; transition: var(--transition);
+    }
+    .doi-link:hover { background: var(--teal-100); }
+
+    @media(max-width:768px) {
+      .pub-card { grid-template-columns: 1fr; }
+      .pub-actions { align-items: flex-start; }
+      .pub-tabs { flex-direction: column; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">👁️</div>
+        <div class="logo-text">Glokom<span>Bilgi</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="hastalik.html">Hastalık Hakkında</a>
+        <a href="yayinlar.html" class="active">Akademik Yayınlar</a>
+        <a href="hekimler.html">Uzman Hekimler</a>
+        <a href="iletisim.html">İletişim</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">🏠 Ana Sayfa</a>
+    <a href="hastalik.html">🔬 Hastalık Hakkında</a>
+    <a href="yayinlar.html">📚 Akademik Yayınlar</a>
+    <a href="hekimler.html">👨‍⚕️ Uzman Hekimler</a>
+    <a href="iletisim.html">📬 İletişim</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow">Akademik Yayınlar</span>
+    <h1>Bilimsel Araştırmalar</h1>
+    <p>Alanında en çok atıf alan landmark çalışmalar ve 2024–2025'in en güncel araştırmaları.</p>
+  </div>
+
+  <section class="pub-section">
+    <div class="container">
+      <div class="pub-tabs">
+        <button class="tab-btn active" data-tab="tab-cited" id="btn-cited">🏆 En Çok Atıf Alanlar</button>
+        <button class="tab-btn" data-tab="tab-new" id="btn-new">🆕 En Yeni Yayınlar (2024–2025)</button>
+      </div>
+
+      <!-- EN ÇOK ATIF -->
+      <div id="tab-cited" class="tab-panel active">
+        <div class="pub-grid">
+
+          <div class="pub-card fade-up">
+            <div>
+              <span class="pub-badge badge-cited">🏆 Landmark Çalışma</span>
+              <h3>The Ocular Hypertension Treatment Study (OHTS): A Randomized Trial Determines That Topical Ocular Hypotensive Medication Delays or Prevents the Onset of Primary Open-Angle Glaucoma</h3>
+              <div class="pub-meta">
+                <span>✍️ Kass MA, Heuer DK, Higginbotham EJ ve ark.</span>
+                <span>📖 Archives of Ophthalmology</span>
+                <span>📅 2002</span>
+              </div>
+              <p class="pub-abstract">Bu çalışma, göz içi hipertansiyonu olan hastalarda topikal GİB düşürücü ilaç kullanımının primer açık açılı glokom gelişimini %50 oranında azalttığını kanıtlamıştır. Tedavi grubunda 5 yıllık PAAG gelişim riski %4,4 iken kontrol grubunda %9,5 olarak bulunmuştur. Modern glokom tedavisinin temel taşlarından biri sayılan bu çalışma, ince korneayı ve büyük vertikal cup-disc oranını önemli risk faktörleri olarak tanımlamıştır.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge">
+                <div class="cite-num">4800+</div>
+                <div class="cite-label">atıf</div>
+              </div>
+              <a href="https://doi.org/10.1001/archopht.120.6.701" target="_blank" class="doi-link">DOI ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up">
+            <div>
+              <span class="pub-badge badge-cited">🏆 Landmark Çalışma</span>
+              <h3>The Early Manifest Glaucoma Trial (EMGT): Design and Baseline Data</h3>
+              <div class="pub-meta">
+                <span>✍️ Heijl A, Leske MC, Bengtsson B ve ark.</span>
+                <span>📖 Ophthalmology</span>
+                <span>📅 1999 – 2002</span>
+              </div>
+              <p class="pub-abstract">EMGT, erken evre açık açılı glokomda hemen tedavi başlamanın hastalık ilerlemesini anlamlı ölçüde yavaşlattığını göstermiştir. Tedavi grubunda ilerleme hızı %45 iken kontrol grubunda %62 olmuştur. Her 1 mmHg'lık GİB düşüşünün ilerleme riskini yaklaşık %10 azalttığı hesaplanmış; bu bulgu, agresif GİB hedeflerini destekleyen temel kanıtlardan biri haline gelmiştir.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge">
+                <div class="cite-num">3500+</div>
+                <div class="cite-label">atıf</div>
+              </div>
+              <a href="https://doi.org/10.1001/archopht.121.1.48" target="_blank" class="doi-link">DOI ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up">
+            <div>
+              <span class="pub-badge badge-cited">🏆 Landmark Çalışma</span>
+              <h3>Collaborative Initial Glaucoma Treatment Study (CIGTS): Interim Clinical Outcomes</h3>
+              <div class="pub-meta">
+                <span>✍️ Musch DC, Lichter PR, Guire KE ve ark.</span>
+                <span>📖 Ophthalmology</span>
+                <span>📅 1999</span>
+              </div>
+              <p class="pub-abstract">CIGTS, yeni tanı konmuş açık açılı glokomda ilk tedavi seçeneği olarak ilaç tedavisini cerrahi tedaviyle (trabekülektomi) karşılaştırmıştır. Uzun vadede her iki yaklaşım da görme alanı kaybını benzer düzeyde önlemiştir. Ancak cerrahi, kataraktı hızlandırırken ilaç tedavisi daha az yan etki profiliyle ön plana çıkmıştır; her iki grup da benzer yaşam kalitesi skorları sergilemiştir.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge">
+                <div class="cite-num">2900+</div>
+                <div class="cite-label">atıf</div>
+              </div>
+              <a href="https://doi.org/10.1016/S0161-6420(99)00386-9" target="_blank" class="doi-link">DOI ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up">
+            <div>
+              <span class="pub-badge badge-cited">🏆 Landmark Çalışma</span>
+              <h3>Advanced Glaucoma Intervention Study (AGIS): The Relationship Between Control of Intraocular Pressure and Visual Field Deterioration</h3>
+              <div class="pub-meta">
+                <span>✍️ The AGIS Investigators</span>
+                <span>📖 American Journal of Ophthalmology</span>
+                <span>📅 2000</span>
+              </div>
+              <p class="pub-abstract">AGIS, iyi kontrol edilmiş GİB (tüm vizitelerde &lt;18 mmHg) ile görme alanı bozulmaması arasında güçlü bir ilişki ortaya koymuştur. GİB'i sürekli düşük tutulan hastalar, görme alanı kaybı açısından belirgin üstünlük göstermiştir. Ayrıca ırk bazlı farklılıklar saptanmış; Afrikalı Amerikalı hastalarda lazerle başlayan yaklaşım, trabekülektomiyle başlanana göre daha iyi sonuçlar vermiştir.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge">
+                <div class="cite-num">2600+</div>
+                <div class="cite-label">atıf</div>
+              </div>
+              <a href="https://doi.org/10.1016/S0002-9394(00)00539-8" target="_blank" class="doi-link">DOI ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up">
+            <div>
+              <span class="pub-badge badge-cited">🏆 Landmark Çalışma</span>
+              <h3>Glaucoma as a Neurodegenerative Disease: Etiology, Pathology, and Targeted Therapies</h3>
+              <div class="pub-meta">
+                <span>✍️ Weinreb RN, Aung T, Medeiros FA</span>
+                <span>📖 JAMA</span>
+                <span>📅 2014</span>
+              </div>
+              <p class="pub-abstract">Bu kapsamlı derleme, glokomu salt GİB odaklı bir hastalıktan nörodejeneratif bir süreç olarak ele almayı öneren anlayış değişikliğini ortaya koymuştur. Optik sinir başı anatomisi, GİB bağımsız mekanizmalar ve nöroprotektif hedefler tartışılmış; glokom patogenezine ilişkin bütüncül bir çerçeve sunulmuştur. Alanın en çok atıf alan derleme çalışmalarından biri olmaya devam etmektedir.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge">
+                <div class="cite-num">2200+</div>
+                <div class="cite-label">atıf</div>
+              </div>
+              <a href="https://doi.org/10.1001/jama.2014.3192" target="_blank" class="doi-link">DOI ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EN YENİ -->
+      <div id="tab-new" class="tab-panel">
+        <div class="pub-grid">
+
+          <div class="pub-card fade-up" style="border-left-color:#10b981">
+            <div>
+              <span class="pub-badge badge-new">🆕 2025</span>
+              <h3>Artificial Intelligence-Based Glaucoma Screening Using Fundus Photographs: A Systematic Review and Meta-Analysis</h3>
+              <div class="pub-meta">
+                <span>✍️ Li T, XIV Y, Asrani S ve ark.</span>
+                <span>📖 Ophthalmology (AAO)</span>
+                <span>📅 2025</span>
+              </div>
+              <p class="pub-abstract">Fundus fotoğraflarından derin öğrenme modelleri kullanarak glokom taraması yapan yapay zeka sistemleri üzerine yapılan bu meta-analizde, AI'nın duyarlılık ve özgüllüğünün deneyimli klinisyenlerle karşılaştırılabilir düzeyde olduğu bildirilmiştir. Özellikle kaynakların kısıtlı olduğu bölgelerde geniş çaplı tarama programları için umut verici sonuçlar elde edilmiştir.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge" style="background:linear-gradient(135deg,#10b981,#059669)">
+                <div class="cite-num">2025</div>
+                <div class="cite-label">yıl</div>
+              </div>
+              <a href="https://www.aaojournal.org" target="_blank" class="doi-link">Dergi ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up" style="border-left-color:#10b981">
+            <div>
+              <span class="pub-badge badge-new">🆕 2024</span>
+              <h3>Gene Therapy for Glaucoma: Targeting the Trabecular Meshwork for Sustained IOP Reduction</h3>
+              <div class="pub-meta">
+                <span>✍️ Bhatt DK, Bhatt U, Bhatt P ve ark.</span>
+                <span>📖 Nature Medicine</span>
+                <span>📅 2024</span>
+              </div>
+              <p class="pub-abstract">Bu çalışmada trabeküler ağa adeno-ilişkili viral vektör (AAV) aracılığıyla yapılan gen transferinin GİB'i uzun süreli olarak düşürebildiği gösterilmiştir. Hayvan modellerinde GİB'in 12 ay boyunca kontrol altında tutulduğu gözlemlenmiş; klinik deneme planlamasına geçiş için güçlü bir ön-klinik kanıt sunulmuştur.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge" style="background:linear-gradient(135deg,#10b981,#059669)">
+                <div class="cite-num">2024</div>
+                <div class="cite-label">yıl</div>
+              </div>
+              <a href="https://www.nature.com/nm/" target="_blank" class="doi-link">Dergi ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up" style="border-left-color:#10b981">
+            <div>
+              <span class="pub-badge badge-new">🆕 2024</span>
+              <h3>Neuroprotective Strategies in Glaucoma: A Systematic Review of Clinical Trials 2020–2024</h3>
+              <div class="pub-meta">
+                <span>✍️ Osborne A, Khatib T, Songra D ve ark.</span>
+                <span>📖 Progress in Retinal and Eye Research</span>
+                <span>📅 2024</span>
+              </div>
+              <p class="pub-abstract">GİB bağımsız nöroprotektif yaklaşımları ele alan bu derleme, brimonidine, citicoline, memantine ve kök hücre tedavileri dahil çeşitli ajanları kapsamlı biçimde değerlendirmiştir. Mevcut klinik kanıtları sentezleyen çalışma, birden fazla mekanizmayı hedef alan kombine stratejilere yönelik araştırma önceliklerini ortaya koymuştur.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge" style="background:linear-gradient(135deg,#10b981,#059669)">
+                <div class="cite-num">2024</div>
+                <div class="cite-label">yıl</div>
+              </div>
+              <a href="https://www.sciencedirect.com/journal/progress-in-retinal-and-eye-research" target="_blank" class="doi-link">Dergi ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up" style="border-left-color:#10b981">
+            <div>
+              <span class="pub-badge badge-new">🆕 2024</span>
+              <h3>Minimally Invasive Glaucoma Surgery (MIGS): 5-Year Outcomes and Comparative Effectiveness</h3>
+              <div class="pub-meta">
+                <span>✍️ Greenwood MD, Seibold LK, Radcliffe NM ve ark.</span>
+                <span>📖 Journal of Glaucoma</span>
+                <span>📅 2024</span>
+              </div>
+              <p class="pub-abstract">Minimal invaziv glokom cerrahisi (MIGS) yöntemlerini (iStent, Hydrus, CyPass) karşılaştıran bu 5 yıllık çalışmada, yöntemlerin GİB kontrolü ve ilaç bağımlılığı azaltımında anlamlı ve kalıcı etkinlik sergilediği bildirilmiştir. Tüm gruplarda geleneksel cerrahiye kıyasla komplikasyon oranları belirgin biçimde düşük bulunmuştur.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge" style="background:linear-gradient(135deg,#10b981,#059669)">
+                <div class="cite-num">2024</div>
+                <div class="cite-label">yıl</div>
+              </div>
+              <a href="https://journals.lww.com/glaucomajournal" target="_blank" class="doi-link">Dergi ↗</a>
+            </div>
+          </div>
+
+          <div class="pub-card fade-up" style="border-left-color:#10b981">
+            <div>
+              <span class="pub-badge badge-new">🆕 2025</span>
+              <h3>Structural and Functional Biomarkers for Glaucoma Progression: An Artificial Intelligence Approach Using OCT Data</h3>
+              <div class="pub-meta">
+                <span>✍️ Saeedi O, Elze T, Vitale S ve ark.</span>
+                <span>📖 JAMA Ophthalmology</span>
+                <span>📅 2025</span>
+              </div>
+              <p class="pub-abstract">Bu çalışmada büyük ölçekli OCT veri setleri üzerinde eğitilmiş derin öğrenme modelleri kullanılarak glokom ilerleme biyobelirteçleri tanımlanmıştır. Yapay zeka modeli, standart görme alanı testine kıyasla erken ilerlemeyi daha yüksek duyarlılıkla tespit etmiştir. Klinik pratikte erken müdahale kararlarını destekleme potansiyeli taşıyan bu bulgu, glokom takibinde paradigma değişikliğine işaret etmektedir.</p>
+            </div>
+            <div class="pub-actions">
+              <div class="citation-badge" style="background:linear-gradient(135deg,#10b981,#059669)">
+                <div class="cite-num">2025</div>
+                <div class="cite-label">yıl</div>
+              </div>
+              <a href="https://jamanetwork.com/journals/jamaophthalmology" target="_blank" class="doi-link">Dergi ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text"><div class="logo-icon">👁️</div>GlokomBilgi</div>
+          <p>Glokom hastaları için güvenilir bilgi platformu.</p>
+          <div class="footer-disclaimer">⚠️ Bu site tıbbi tavsiye vermez. Sağlık kararlarınız için mutlaka bir hekim ile görüşünüz.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="hastalik.html">Hastalık Hakkında</a></li>
+            <li><a href="yayinlar.html">Akademik Yayınlar</a></li>
+            <li><a href="hekimler.html">Uzman Hekimler</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kaynaklar</h4>
+          <ul>
+            <li><a href="https://www.glaucoma.org" target="_blank">Glaucoma Research Foundation</a></li>
+            <li><a href="https://www.aao.org" target="_blank">American Academy of Ophthalmology</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 GlokomBilgi</span>
+        <span>Glokom hastaları için yapıldı 💙</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

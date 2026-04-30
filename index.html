@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlokomBilgi — Glokom Hastaları İçin Kapsamlı Bilgi Kaynağı</title>
+  <meta name="description" content="Glokom hastalığı hakkında her şey: belirtiler, tedavi yöntemleri, uzman hekimler ve güncel akademik yayınlar. Glokom hastaları için güvenilir bilgi kaynağı." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 60%, #0d3333 100%);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 100px 24px 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(14,158,158,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%; left: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(14,158,158,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14,158,158,0.15);
+      border: 1px solid rgba(14,158,158,0.3);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--teal-300);
+      margin-bottom: 28px;
+    }
+
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      background: var(--teal-400);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--teal-400), var(--teal-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    }
+
+    .hero-image-badge {
+      position: absolute;
+      bottom: -20px; left: -20px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-image-badge .icon {
+      width: 44px; height: 44px;
+      background: var(--teal-100);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .hero-image-badge .text strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy-800);
+    }
+    .hero-image-badge .text span {
+      font-size: 0.78rem;
+      color: var(--gray-600);
+    }
+
+    /* ── Stats ── */
+    .stats-section {
+      background: var(--white);
+      padding: 48px 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item .number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--teal-500);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-item .suffix {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--teal-500);
+    }
+
+    .stat-item .label {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    /* ── Quick Access Cards ── */
+    .quick-access { background: var(--gray-100); }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .quick-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      border: 2px solid transparent;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--teal-300);
+    }
+
+    .quick-card .icon-wrap {
+      width: 68px; height: 68px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 20px;
+    }
+
+    .quick-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy-800);
+      margin-bottom: 10px;
+    }
+
+    .quick-card p {
+      font-size: 0.88rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .qc-1 .icon-wrap { background: linear-gradient(135deg, #e0f7f7, #b3eeee); }
+    .qc-2 .icon-wrap { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+    .qc-3 .icon-wrap { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+    .qc-4 .icon-wrap { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+
+    /* ── About Section ── */
+    .about-section { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-content .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-500);
+      background: var(--teal-100);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .about-content h2 { color: var(--navy-800); margin-bottom: 20px; }
+
+    .about-content p {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .about-feature .feat-icon {
+      width: 44px; height: 44px;
+      background: var(--teal-100);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .about-feature .feat-text strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--navy-800);
+      margin-bottom: 4px;
+    }
+
+    .about-feature .feat-text span {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-visual-card {
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      color: var(--white);
+    }
+
+    .warning-sign {
+      text-align: center;
+      padding: 32px;
+    }
+
+    .warning-sign .eye-icon {
+      font-size: 5rem;
+      display: block;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    .warning-sign h3 {
+      color: var(--teal-300);
+      margin-bottom: 12px;
+    }
+
+    .warning-sign p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .symptom-list {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .symptom-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14,158,158,0.12);
+      border: 1px solid rgba(14,158,158,0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .symptom-item span { font-size: 1.1rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-image-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .quick-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">👁️</div>
+        <div class="logo-text">Glokom<span>Bilgi</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="hastalik.html">Hastalık Hakkında</a>
+        <a href="yayinlar.html">Akademik Yayınlar</a>
+        <a href="hekimler.html">Uzman Hekimler</a>
+        <a href="iletisim.html">İletişim</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Mobile Menu ── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">🏠 Ana Sayfa</a>
+    <a href="hastalik.html">🔬 Hastalık Hakkında</a>
+    <a href="yayinlar.html">📚 Akademik Yayınlar</a>
+    <a href="hekimler.html">👨‍⚕️ Uzman Hekimler</a>
+    <a href="iletisim.html">📬 İletişim</a>
+  </div>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Güvenilir Tıbbi Bilgi Kaynağı
+        </div>
+        <h1 class="hero-title">
+          Glokom hakkında<br />
+          <span class="highlight">bilmeniz gereken</span><br />
+          her şey burada
+        </h1>
+        <p class="hero-subtitle">
+          Glokom hastaları ve yakınları için hastalık bilgisi, güncel akademik yayınlar ve Türkiye'nin alanında uzman hekimleri tek platformda.
+        </p>
+        <div class="hero-actions">
+          <a href="hastalik.html" class="btn btn-primary">Hastalığı Öğren →</a>
+          <a href="hekimler.html" class="btn btn-outline">Uzman Bul</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="assets/images/hero.png" alt="Glokom hastalığı bilgi görseli" />
+        <div class="hero-image-badge">
+          <div class="icon">🏆</div>
+          <div class="text">
+            <strong>Güvenilir Bilgi</strong>
+            <span>Akademik kaynaklara dayalı</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats ── -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <div class="number"><span class="counter" data-target="80">0</span><span class="suffix">M</span></div>
+        <div class="label">Dünya genelinde glokom hastası</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="number"><span class="counter" data-target="1200">0</span><span class="suffix">K</span></div>
+        <div class="label">Türkiye'deki tahminî hasta sayısı</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="number"><span class="counter" data-target="50">0</span><span class="suffix">%</span></div>
+        <div class="label">Hastaların tanı almadan yaşadığı tahmin edilmektedir</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="number"><span class="counter" data-target="2">0</span>. <span style="font-size:1.4rem;font-weight:800;color:var(--teal-500)">sırada</span></div>
+        <div class="label">Dünyada geri dönüşümsüz körlük nedenleri arasında</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quick Access ── -->
+  <section class="quick-access">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Hızlı Erişim</span>
+        <h2>Ne aramak istiyorsunuz?</h2>
+        <p>Glokom hastalığı hakkında tüm bilgilere kategoriler halinde ulaşın.</p>
+      </div>
+      <div class="quick-grid">
+        <a href="hastalik.html" class="quick-card qc-1 fade-up">
+          <div class="icon-wrap">🔬</div>
+          <h3>Hastalık Hakkında</h3>
+          <p>Glokom nedir, belirtileri, türleri ve tedavi yöntemleri hakkında kapsamlı bilgi.</p>
+        </a>
+        <a href="yayinlar.html" class="quick-card qc-2 fade-up">
+          <div class="icon-wrap">📚</div>
+          <h3>Akademik Yayınlar</h3>
+          <p>Alanında en çok atıf alan çalışmalar ve 2024-2025'in en güncel araştırmaları.</p>
+        </a>
+        <a href="hekimler.html" class="quick-card qc-3 fade-up">
+          <div class="icon-wrap">👨‍⚕️</div>
+          <h3>Uzman Hekimler</h3>
+          <p>Türkiye'nin önde gelen glokom uzmanları ve bulundukları hastaneler.</p>
+        </a>
+        <a href="iletisim.html" class="quick-card qc-4 fade-up">
+          <div class="icon-wrap">💬</div>
+          <h3>SSS & İletişim</h3>
+          <p>Sık sorulan sorular ve bize ulaşabileceğiniz iletişim formu.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About Glaucoma Teaser ── -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content fade-up">
+          <span class="eyebrow">Hastalık Hakkında</span>
+          <h2>Glokom nedir ve neden önemlidir?</h2>
+          <p>
+            Glokom; göz içi basıncının artması veya optik sinirin hasar görmesi sonucu kalıcı görme kaybına yol açan, çoğunlukla <strong>sessiz seyreden</strong> bir hastalıktır.
+          </p>
+          <p>
+            Dünyada geri dönüşümsüz körlüğün 2. en sık nedeni olan glokomun en tehlikeli özelliği, erken evrede belirti vermemesidir. Bu nedenle erken tanı hayati önem taşır.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="feat-icon">🎯</div>
+              <div class="feat-text">
+                <strong>Erken Tanı Kritiktir</strong>
+                <span>Hastalık çoğu zaman belirtisiz ilerlediğinden düzenli göz muayenesi şarttır.</span>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feat-icon">💊</div>
+              <div class="feat-text">
+                <strong>Tedavi Edilebilir</strong>
+                <span>Göz damlası, lazer veya cerrahi ile hastalığın ilerlemesi yavaşlatılabilir.</span>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feat-icon">👁️</div>
+              <div class="feat-text">
+                <strong>Risk Grupları Dikkatli Olmalı</strong>
+                <span>Ailesinde glokom olanlar, 40 yaş üstü ve diyabet hastaları risk altındadır.</span>
+              </div>
+            </div>
+          </div>
+          <a href="hastalik.html" class="btn btn-primary" style="margin-top:32px;">Daha Fazla Bilgi Al →</a>
+        </div>
+        <div class="about-visual fade-up">
+          <div class="about-visual-card">
+            <div class="warning-sign">
+              <span class="eye-icon">👁️</span>
+              <h3>Dikkat! Erken Uyarı İşaretleri</h3>
+              <p>Bu belirtilerden herhangi birini yaşıyorsanız vakit kaybetmeden bir göz hekimine başvurunuz.</p>
+            </div>
+            <div class="symptom-list">
+              <div class="symptom-item"><span>🔵</span> Işık etrafında hale görme</div>
+              <div class="symptom-item"><span>🔵</span> Yan (periferik) görüşte daralma</div>
+              <div class="symptom-item"><span>🔵</span> Göz ağrısı ve baş ağrısı</div>
+              <div class="symptom-item"><span>🔵</span> Bulanık veya silik görme</div>
+              <div class="symptom-item"><span>🔵</span> Gece görüşünde bozulma</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">
+            <div class="logo-icon">👁️</div>
+            GlokomBilgi
+          </div>
+          <p>Glokom hastaları ve yakınları için güvenilir, güncel ve anlaşılır bilgi sunmayı amaçlayan bağımsız bir bilgi platformu.</p>
+          <div class="footer-disclaimer">
+            ⚠️ Bu site tıbbi tavsiye vermez. Sağlık kararlarınız için mutlaka bir hekim ile görüşünüz.
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="hastalik.html">Hastalık Hakkında</a></li>
+            <li><a href="yayinlar.html">Akademik Yayınlar</a></li>
+            <li><a href="hekimler.html">Uzman Hekimler</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Faydalı Kaynaklar</h4>
+          <ul>
+            <li><a href="https://www.glaucoma.org" target="_blank" rel="noopener">Glaucoma Research Foundation</a></li>
+            <li><a href="https://www.aao.org" target="_blank" rel="noopener">American Academy of Ophthalmology</a></li>
+            <li><a href="https://www.togg.org.tr" target="_blank" rel="noopener">Türk Oftalmoloji Grubu</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 GlokomBilgi. Tüm hakları saklıdır.</span>
+        <span>Glokom hastaları için yapıldı 💙</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
